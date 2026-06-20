@@ -1,96 +1,105 @@
-def findounces(kg, g):
-    kilograms = (g + 1000 * kg) / 1000
-    ounces = kilograms * 2.2046 * 16
+import time
 
-    stone = ounces // (14 * 16)
-    ounces = ounces % (14 * 16)
-    pounds = ounces // 16
-    ounces = ounces % 16
+class Tools:
+    SLEEP_SECONDS = 1
+    GRAMS_PER_KILOGRAM = 1000
+    KILOGRAM_TO_POUND = 2.2046
+    OUNCES_PER_POUND = 16
+    POUNDS_PER_STONE = 14
+    #Space wasting constants (if you need sources)
 
-    time.sleep(1)
-    result = str(kg) + ' kilograms and ' + str(g) + 'grams is equivalent to ' + str(stone) + ' stones, '+\
-                  str(pounds) + ' pounds, and about ' + str(round(ounces, 5)) + ' ounces.'
-    return result
+    def findounces(self, a, b):
+        total_kg = (b + self.GRAMS_PER_KILOGRAM * a) / self.GRAMS_PER_KILOGRAM
+        total_ounces = total_kg * self.KILOGRAM_TO_POUND * self.OUNCES_PER_POUND
 
-def sums():
-    is_4_doing = True
-    integer_sum = 0
-    float_sum = 0.0
+        stone = total_ounces // (self.POUNDS_PER_STONE * self.OUNCES_PER_POUND)
+        total_ounces = total_ounces % (self.POUNDS_PER_STONE * self.OUNCES_PER_POUND)
+        pounds = total_ounces // self.OUNCES_PER_POUND
+        total_ounces = total_ounces % self.OUNCES_PER_POUND
 
-    while is_4_doing:
-        number = input('Enter an integer or a float. 0 to stop.\n')
-        if number == '0':
-            is_4_doing = False
-        else:
-            if '.' in number:
-                float_sum += float(number)
+        time.sleep(self.SLEEP_SECONDS)
+        return (
+            f"{a} kilograms and {b} grams is equivalent to {stone} stones, "
+            f"{pounds} pounds, and about {round(total_ounces, 5)} ounces."
+        )
+
+    def sums(self):
+        active = True
+        int_total = 0
+        float_total = 0.0
+
+        while active:
+            value = input('Enter an integer or a float. 0 to stop.\n')
+            if value == '0':
+                active = False
             else:
-                integer_sum += int(number)
+                if '.' in value:
+                    float_total += float(value)
+                else:
+                    int_total += int(value)
 
-    print('Done!')
-    print('Integer sum:', integer_sum, '\n Float sum:', float_sum)
+        print('Done!')
+        print('Integer sum:', int_total, '\n Float sum:', float_total)
 
+    def get_grades(self, first_subject, second_subject):
+        first_grade = input(first_subject + ' grade: ')
+        second_grade = input(second_subject + ' grade: ')
 
-def get_grades(subject1, subject2):
-    #since this was copied, the variables are named such
-    art = input(subject1 + 'grade: ')        
-    sci = input(subject2 + 'grade: ')
-
-    if art == 'd' and sci == 'd': #first failing grade
-        result = 'Not promoted'
-    elif art == 'f' or sci == 'f':
-        if art == 'b' or art == 'a' or sci == 'a' or sci == 'b':
-            if art == 'f':
-                result = 'Science'
-            elif sci == 'f':
-                result = 'Art'
+        if first_grade == 'd' and second_grade == 'd':
+            outcome = 'Not promoted'
+        elif first_grade == 'f' or second_grade == 'f':
+            if first_grade in ('a', 'b') or second_grade in ('a', 'b'):
+                if first_grade == 'f':
+                    outcome = second_subject
+                elif second_grade == 'f':
+                    outcome = first_subject
+            else:
+                outcome = 'Not promoted'
+        elif first_grade == second_grade:
+            outcome = 'Choose'
+        elif second_grade == 'a':
+            outcome = second_subject
+        elif second_grade == 'b' and first_grade != 'a':
+            outcome = second_subject
+        elif first_grade == 'a':
+            outcome = first_subject
+        elif first_grade == 'b' and second_grade != 'a':
+            outcome = first_subject
+        elif first_grade == 'c':
+            outcome = first_subject
+        elif second_grade == 'c':
+            outcome = second_subject
         else:
-            result = 'Not promoted' # if one fails, the other is worse than 'c'?
-    elif art == sci:
-        result = 'Choose'
-    elif sci == 'a':
-        result = subject2 # cannot be the same
-    elif sci == 'b' and not art == 'a':
-        result = subject2 #cannot be the same
-    elif art == 'a':
-        result = subject1
-    elif art == 'b' and not sci == 'a':
-        result = subject1 #cannot be the same
-    elif art == 'c':
-        result = subject1 # cannot be the same, science was covered, cannot be failing
-    elif sci == 'c':
-        result = subject2 # 167
-    else:
-        print('You dummy entered weird things and now you have to try the question again')
-        result = 'Youre dum'
+            print('You dummy entered weird things and now you have to try the question again')
+            outcome = 'Youre dum'
 
-    time.sleep(1)
-    print('Your result: ', result)
+        time.sleep(self.SLEEP_SECONDS)
+        print('Your result:', outcome)
 
-def add_commas(anint):
-    num = anint
-    numstr = ''
+    def add_commas(self, value):
+        remaining = value
+        formatted = ''
 
-    while num > 0:
-        if num // 1000 > 0:
-            last3 = str(num % 1000).zfill(3)
-        else:
-            last3 = str(num % 1000)
-        num = num // 1000
-        if numstr != '':
-            numstr = last3 + ',' + numstr
-        else:
-            numstr = last3 + numstr
+        while remaining > 0:
+            if remaining // self.GRAMS_PER_KILOGRAM > 0:
+                segment = str(remaining % self.GRAMS_PER_KILOGRAM).zfill(3)
+            else:
+                segment = str(remaining % self.GRAMS_PER_KILOGRAM)
+            remaining = remaining // self.GRAMS_PER_KILOGRAM
+            if formatted:
+                formatted = segment + ',' + formatted
+            else:
+                formatted = segment
 
-    time.sleep(1)
-    return numstr
+        time.sleep(self.SLEEP_SECONDS)
+        return formatted
 
-def triangle(rows, start):
-    num = start
+    def triangle(self, rows, start):
+        current = start
 
-    for i in range(rows):
-        print('   ' * ((rows - i) * 2), end='') # leading spaces for my right justified triangle
-        for j in range(i * 2 + 1):
-            print(num, end=' ')
-            num += 2
-        print()
+        for i in range(rows):
+            print('   ' * ((rows - i) * 2), end='')
+            for _ in range(i * 2 + 1):
+                print(current, end=' ')
+                current += 2
+            print()

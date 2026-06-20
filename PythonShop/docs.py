@@ -1,4 +1,4 @@
-classes_doc = '''Python 3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)] on win32
+docs = {"classes_doc" : r'''Python 3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)] on win32
 Enter "help" below or click "Help" above for more information.
 num = 1
 numstr = ''
@@ -297,9 +297,9 @@ NameError: name 'see' is not defined. Did you mean: 'set'?
 None
 >>>
 #Please Remember To Treat Object Functions And Normal Functions Sepeartely!!!!!!!!!!!!\
-'''
+''',
 
-patterns_doc = '''Python 3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)] on win32
+"patterns_doc" : r'''Python 3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)] on win32
 Enter "help" below or click "Help" above for more information.
 import re
 help(re)
@@ -408,6 +408,54 @@ Phone number pls: 6-7
 ... Complete help docs: 864 lines, most is spent yapping about their classes.
 ... The most important parts are in a doc above.
 ... Do not run this file. It is a help file.
-... '''
+... ''',
 
-print('The docs are called classes_doc and patterns_doc')
+"tkinter_docs" : '''
+Minimises the super-long help function to this basic function notes.
+Unfinished
+---
+
+NOTES ON USING TKINTER FROM "THE BOOK"
+ALL FUNCTION NAMES NEED THE MODULE NAME
+______________________________________________________
+
+1. Starting
+Make a window with Tk().
+Set title with window.title('title').
+
+Must have:  a window.mainloop() to call events at the endish of the program.
+______________________________________________________
+
+2. Things on the thing
+
+~~~~~Labels~~~~~
+Make a label by assigning a variable to
+Label(window, text = '')
+
+Pack it with label.pack(padx = , pady = )
+
+Update it with label.configure(anything you want to change)
+
+~~~~~~Buttons~~~~~~~
+Create a button on the window by assigning a variable to
+Button(window, text = '', command = (any function you define previously))
+The command argument should not have any brackets.
+
+Other arguments: activebackground(when touching mouse), activeforeground
+(when touching mouse), bd(border width), bg(colour), fg(foreground colour),
+font, height, highlightcolour (border when the button is in focus), image
+(instead of text), justify(LEFT, CENTER, RIGHT), relief(border style SUNKEN,
+RIDGE, RAISED, GROOVE), state(normal or disabled), underline(index number of
+the character(s)), width, wraplength(for wrapping text).
+
+Pack it with button.pack(padx= , pady= )
+
+Update it with button.configure(anything you want to change)
+
+~~~~~~~~~~~~~Entry Widgets~~~~~~~~~~~~~~~~~
+First define a frame with frame = Frame(window).
+Then put the entry on the frame with entry = Entry(frame).
+
+'''
+
+}
